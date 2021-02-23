@@ -79,5 +79,156 @@ try:
 except ValueError:
     print("Вы ввели не число")
 
-#Задание 5
+# Задание 5
+# Метод 1
+numbersStr = input("Введите числа через пробел:>_")
+numberX = int(input("Введите число X:>_"))
+repeats = ""
+current = 0
+index = 0
+while current < len(numbersStr):
+    if numbersStr[current] != ' ':
+        if int(numbersStr[current]) == numberX:
+            repeats += index + " "
+            index += 1
+    current += 1
+if repeats == "":
+    print("Нет совпадений")
+else:
+    print(repeats)
+# Метод 2
+numbersStr = input("Введите числа через пробел:>_")
+numberX = int(input("Введите число X:>_"))
+numbersStrList = numbersStr.split()
+repeats = ""
+index = 0
+while True:
+    try:
+        index = numbersStrList.index(str(numberX), index)
+        repeats += index + " "
+    except ValueError:
+        break
+if repeats == "":
+    print(repeats)
+else:
+    print("Нет совпадений")
+# Задание 6
+# Метод 1
+strokaNumbers = ""
+_ = ""
+while True:
+    _ = input("Введите число(или done если все):>_") + " "
+    if _ == "done":
+        break
+    else:
+        strokaNumbers += _ + " "
+maxElement = int(strokaNumbers[0])
+minElement = int(strokaNumbers[0])
+current = 1
+while current < len(strokaNumbers):
+    if strokaNumbers[current] != " ":
+        if int(strokaNumbers[current]) > maxElement:
+            maxElement = int(strokaNumbers[current])
+        elif int(strokaNumbers[current]) < minElement:
+            minElement = int(strokaNumbers[current])
+print("Максимальный: " + maxElement)
+print("Минимальный: " + minElement)
+# Метод 2
+strokaNumbers = []
+_ = ""
+while True:
+    _ = input("Введите число(или done если все):>_") + " "
+    if _ == "done":
+        break
+    else:
+        strokaNumbers.append(int(_))
+print("Максимальный: " + max(strokaNumbers))
+print("Минимальный: " + min(strokaNumbers))
+# Задание 7
+Stroka = "But soft what light through yonder window breaks "
+Stroka += "It is the east and Juliet is the sun "
+Stroka += "Arise fair sun and kill the envious moon "
+Stroka += "Who is already sick and pale with grief"
+Stroka = Stroka.split()
+result = []
+for _ in Stroka:
+    try:
+        result.index(_)
+    except ValueError:
+        result.append(_)
+result.sort()
+print(result)
+# Задание 8
+string = input('Введите слово: ')
+stringRevers = reversed(string)
+if "yes" == "".join(set(["yes" if i == j else "no" for i, j in zip(string, stringRevers)])):
+    print("yes")
+else:
+    print("no")
+# Задание 9
+N = int(input("Введите размер таблицы:>_"))
+STOP = N * N
+stolb = 0
+stroka = 0
+strokaNow = True
+i = 0
+j = 0
+mini = []
+while i < N:
+    mini.append(0)
+matrica = []
+while j < N:
+    matrica.append(mini)
 
+current = 1
+maxIndex = 4
+minIndex = 0
+izmena=0
+while True:
+    if current == STOP:
+        break
+    elif strokaNow and stroka == minIndex:
+        izmena+=1
+        while stroka <= maxIndex:
+            if current == STOP:
+                break
+            else:
+                matrica[stolb][stroka] = current
+                stroka += 1
+                current += 1
+        strokaNow = False
+    elif strokaNow and stroka == maxIndex:
+        izmena += 1
+        while stroka >= minIndex:
+            if current == STOP:
+                break
+            else:
+                matrica[stolb][stroka] = current
+                current += 1
+                stroka -= 1
+        strokaNow = False
+    elif not strokaNow and stolb == minIndex:
+        izmena += 1
+        while stolb <= maxIndex:
+            if current == STOP:
+                break
+            else:
+                matrica[stolb][stroka] = current
+                stolb += 1
+                current += 1
+            strokaNow = True
+    elif not strokaNow and stolb == maxIndex:
+        izmena += 1
+        while stolb >= minIndex:
+            if current == STOP:
+                break
+            else:
+                matrica[stolb][stroka] = current
+                stolb -= 1
+                current += 1
+            strokaNow = True
+    if izmena== 4 :
+        maxIndex -= 1
+        minIndex += 1
+        izmena=0
+print(matrica)
